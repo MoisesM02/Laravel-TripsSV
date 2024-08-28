@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\File;
+use Illuminate\Http\RedirectResponse;
 
 class CategoryController extends Controller
 {
@@ -28,9 +32,34 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request):RedirectResponse
     {
         //
+        $validated = Validator::validate($request->all(), [
+            'name' => 'required|string|max:255',
+            'description' => 'required|string|max:255',
+            'image' => [
+                'required',
+                File::image()
+                ->min('1kb')
+                ->max('5mb')
+            ]
+            ]);
+        $path;
+        if($request->hasFile('image')){
+            $image = $request->file('image');
+            $path = $request->file('image')->store('images', 'public');
+        }else{
+            return redirect(route('categories.create'));
+        }
+        Category::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            "image_path" => $path,
+            'user_id' => $request->user()->id,
+        ]);
+            
+        return redirect(route('categories.create'))->with('success', 'Category created successfully!');
     }
 
     /**
