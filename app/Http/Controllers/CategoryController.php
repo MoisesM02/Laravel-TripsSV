@@ -46,13 +46,16 @@ class CategoryController extends Controller
                 'required',
                 File::image()
                 ->min('1kb')
-                ->max('5mb')
+                ->max('5mb'),
+                Rule::dimensions()->maxWidth(1350)->maxHeight(1080)->ratio(3 / 2),
             ]
             ]);
         $path;
         if($request->hasFile('image')){
             $image = $request->file('image');
-            $path = $request->file('image')->store('images', 'public');
+            $path = $request->file('image')->store('images', 'public'); //Guarda la imagen dentro del directorio storage/images/
+            //Para mostrar la imagen en blade se debe de utilizar la función asset() con el parámetro 'storage/' . $category->image_path
+            
         }else{
             return redirect(route('categories.create'));
         }
@@ -71,7 +74,9 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+        //Para mostrar la ruta a este método hay que utilizar route('categories.show', ['category'=>aquí_va_el_id_de_categoría])
+
+        return view('categories.category');
     }
 
     /**
