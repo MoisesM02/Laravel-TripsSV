@@ -11,19 +11,12 @@ class Card extends Component
     /**
      * Create a new component instance.
      */
-    //You must declare here the variables that will be used inside the component to pass data
-    public $name;
-    public $description;
-    public $image;
-    public $route;
 
-    public function __construct($name, $description, $image, $route)
+  
+
+    public function __construct()
     {
-        //Assigning value to the properties
-        $this->name = $name;
-        $this->description = $description;
-        $this->image = $image;
-        $this->route = $route;
+       
     }
 
     /**

@@ -8,12 +8,24 @@
                         <div class="flex flex-wrap mx-4 p-8">
                         
                         @if($categories)
-                            @foreach ($categories as $category)                              
-                                <x-Card 
-                                :name="$category->name" 
-                                :description="$category->description" 
-                                :route="Route('categories.show', ['category' => $category->id])" 
-                                :image="asset('storage/'.$category->image_path)" />
+                            @foreach ($categories as $category)   
+                            
+                                {{-- Using named slots to pass data to the card component --}}
+                               <x-card>
+                                <x-slot:name>
+                                    {{$category->name}}
+                                </x-slot>
+                                <x-slot:description>
+                                    {{$category->description}}
+                                </x-slot>
+                                <x-slot:image>
+                                    {{asset('storage/'.$category->image_path)}}
+                                </x-slot>
+                                <x-slot:route>
+                                    {{Route('categories.show', ['category' => $category->id])}}
+                                </x-slot>
+                               </x-card>
+                               
                             @endforeach
                         @else
                             {{__('There\'s no categories to show')}}
