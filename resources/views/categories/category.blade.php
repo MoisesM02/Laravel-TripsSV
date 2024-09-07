@@ -6,7 +6,11 @@
                     <div class="container">
                         <h2 class="text-2xl font-bold ml-6 mt-6 text-gray-800">{{__('Explore new places')}}</h2>
                         <div class="flex flex-wrap mx-4 p-8">
-
+                            @if ($places->count())
+                                
+                            @else
+                                {{__('Sorry! We have no places for this category yet, we are hoping to add some soon.')}}
+                            @endif
                         </div>
                     </div>
                 </div>

@@ -7,7 +7,7 @@
                         <h2 class="text-2xl font-bold ml-6 mt-6 text-gray-800">{{__('Explore new places')}}</h2>
                         <div class="flex flex-wrap mx-4 p-8">
                         
-                        @if($categories)
+                        @if($categories->count())
                             @foreach ($categories as $category)   
                             
                                 {{-- Using named slots to pass data to the card component --}}

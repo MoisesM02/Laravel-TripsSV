@@ -23,5 +23,6 @@ Route::middleware('auth')->group(function () {
 
 
 Route::resource('categories', CategoryController::class);
+Route::resource('places', PlaceController::class);
 
 require __DIR__.'/auth.php';

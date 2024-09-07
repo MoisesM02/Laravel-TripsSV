@@ -19,7 +19,7 @@ class Category extends Model
 
     public function places(): HasMany
     {
-        return $this->hasMany(Places::class);
+        return $this->hasMany(Place::class);
     }
 
 }

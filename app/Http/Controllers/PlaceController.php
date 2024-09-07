@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Place;
 use Illuminate\Http\Request;
+use App\Models\Category;
 
 class PlaceController extends Controller
 {
@@ -20,7 +21,9 @@ class PlaceController extends Controller
      */
     public function create()
     {
-        //
+        //Retrieving categories to display on select
+        
+        return view("places.create");
     }
 
     /**
