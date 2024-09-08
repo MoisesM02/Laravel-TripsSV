@@ -22,8 +22,9 @@ class PlaceController extends Controller
     public function create()
     {
         //Retrieving categories to display on select
-        
-        return view("places.create");
+        $categories = Category::select('id', 'name')->get();
+
+        return view("places.create", ["categories" => $categories]);
     }
 
     /**
