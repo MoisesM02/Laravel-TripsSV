@@ -12,13 +12,11 @@ class Form extends Component
      * Create a new component instance.
      */
     //This is the route that the form will be submitted to
-    public $route;
-    public $enctype;
-    public function __construct($route, $enctype = "application/x-www-form-urlencoded")
+
+    public function __construct($route)
     {
         //
         $this->route = $route;
-        $this->enctype = $enctype;
     }
 
     /**

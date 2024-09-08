@@ -24,6 +24,8 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'tinymce' => env('TINYMCE_API_KEY '),
+
     'resend' => [
         'key' => env('RESEND_KEY'),
     ],

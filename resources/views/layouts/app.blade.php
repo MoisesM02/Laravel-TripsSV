@@ -10,7 +10,9 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
+        @isset($links)
+            {{$links}}
+        @endisset
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
@@ -29,7 +31,15 @@
 
             <!-- Page Content -->
             <main>
-                {{ $slot }}
+                <div class="py-12">
+                    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                        <div class="bg-gray-200 overflow-hidden shadow-sm sm:rounded-lg">
+                            <div class="container">
+                    {{ $slot }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </main>
         </div>
     </body>

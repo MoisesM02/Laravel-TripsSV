@@ -75,7 +75,7 @@ class CategoryController extends Controller
     public function show(Category $category)
     {
         //Para mostrar la ruta a este método hay que utilizar route('categories.show', ['category'=>aquí_va_el_id_de_categoría])
-        $places = $category->places();
+        $places = $category->places()->get();
         return view('categories.category', ['places'=>$places]);
     }
 

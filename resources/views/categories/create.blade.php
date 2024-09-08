@@ -1,16 +1,22 @@
 <x-app-layout>
     <x-slot name="slot">
-
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    <h2 class="text-2xl font-bold mb-6 text-gray-800">Create category</h2>
-                    <form class="max-w-sm mx-auto py-5" enctype="multipart/form-data" action="{{ route('categories.store')}}" method="POST">
-                        @csrf
+        <x-form enctype="multipart/form-data" method="POST" :route="route('categories.store')">
+        @csrf
                         @if (session('success'))
                         <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
                                 <span class="font-medium">Success!</span> {{session('success')}}
+                            </div>
+                        @endif
+                        @if ($errors->any())
+                        <div class="p-4 mt-5 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                            <div class="alert alert-danger">
+                                
                             </div>
                         @endif
                         
@@ -31,22 +37,7 @@
                         <x-primary-button>
                             {{__('Create')}}
                         </x-primary-button>
-                        @if ($errors->any())
-                        <div class="p-4 mt-5 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                            <div class="alert alert-danger">
-                                
-                            </div>
-                        @endif
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+                        
+        </x-form>
     </x-slot>
 </x-app-layout>
