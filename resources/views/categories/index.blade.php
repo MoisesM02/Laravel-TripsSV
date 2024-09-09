@@ -1,6 +1,11 @@
 <x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Categories') }}
+        </h2>
+    </x-slot>
     <x-slot name="slot">
-        <h2 class="text-2xl font-bold ml-6 mt-6 text-gray-800">{{__('Explore new places')}}</h2>
+        <h2 class="text-2xl font-bold ml-6 mt-6 text-gray-800">{{__('Discover new places')}}</h2>
         <div class="flex flex-wrap mx-4 p-8">
         
         @if($categories->count())

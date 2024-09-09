@@ -1,8 +1,16 @@
 <x-app-layout>
+<x-slot name="header">
+    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Add a new place to the site') }}
+        </h2>
+    </x-slot>
     <x-slot name="slot">
+    <x-form enctype="multipart/form-data" method="POST" action=" {{((request()->routeIs('places.create'))) ?route('places.store') : route('places.update', $place)}}">
 
-    <x-form enctype="multipart/form-data" method="POST" :route="route('places.store')">
         @csrf
+        @if (!request()->routeIs('places.create'))
+            @method('patch')
+        @endif
         @if (session('success'))
         <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
                 <span class="font-medium">Success!</span> {{session('success')}}
@@ -21,7 +29,7 @@
         
         <div class="mb-5">
             <x-input-label value="Place's name" for="name" class="mb-2" />
-            <x-text-input name="name" class="block w-full rounded-lg" value="{{old('name')}}"/>
+            <x-text-input name="name" class="block  rounded-lg" value="{{isset($place) ? $place->name : old('name')}}"/>
         </div>
         
         <div class="mb-5">
@@ -30,7 +38,8 @@
 
                 @if ($categories->count())
                     @foreach ($categories as $category)
-                        <option value="{{$category->id}}" {{old('category_id') == $category->id ? 'selected' : '' }}>{{$category->name}}</option>
+                        
+                        <option value="{{$category->id}}" {{ (isset($place) && $place->category_id == $category->id) ? 'selected' : '' }}>{{$category->name}}</option>
                     @endforeach
                 @else
                 <option value="0">{{__('There are no categories to display')}}</option> 
@@ -40,7 +49,7 @@
         
         <div class="mb-5">
             <x-input-label for="description" value="Description"/>
-            <textarea id="description" name="description" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Tell us a description of this place...">{{old('description')}}</textarea>
+            <textarea id="description" value="" name="description" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Tell us a description of this place...">{{isset($place) ? $place->description : old('description')}}</textarea>
         </div>
         
         <div class="mb-4">
@@ -48,14 +57,13 @@
             <input type="file" id="image" name="image" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
         </div>
 
-        <div class="mb-4">
+        <div class="mb-4 min-w-full">
             <x-input-label value="Content" for="content"/>
-            <textarea name="content" id="content">{{old('content')}}</textarea>
+            <textarea name="content" id="content"></textarea>
         </div>
         <x-primary-button>
             {{__('Create')}}
         </x-primary-button>
-        
     </x-form>
 
     <!-- Include TinyMCE from the public directory -->
@@ -66,6 +74,11 @@
     <script>
     tinymce.init({
         selector: 'textarea#content',
+        @isset($place) 
+        init_instance_callback : function(editor) {
+                editor.setContent(`{!!$place->content !!}`);
+            },           
+        @endisset
         plugins: [
         // Core editing features
         'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',

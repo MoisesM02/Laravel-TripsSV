@@ -13,10 +13,10 @@ class Form extends Component
      */
     //This is the route that the form will be submitted to
 
-    public function __construct($route)
+    public function __construct()
     {
         //
-        $this->route = $route;
+
     }
 
     /**

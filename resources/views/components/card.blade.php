@@ -11,7 +11,7 @@
             <p class="text-base text-body-color leading-relaxed mb-7">
                 {{$description}}
             </p>
-            <a href="{{$route}}" class="inline-block py-2 px-7 border border-[#E5E7EB] rounded-full text-base text-body-color font-medium hover:border-primary hover:bg-primary hover:text-white transition">
+            <a href="{{$route}}" class="inline-block py-2 px-7 border border-[#E5E7EB] rounded-full text-base text-body-color font-medium hover:border-primary hover:bg-blue-500 hover:text-white transition">
                 {{__('Discover new sites')}}
             </a>
         </div>

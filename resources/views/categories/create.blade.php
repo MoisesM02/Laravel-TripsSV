@@ -1,4 +1,9 @@
 <x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                {{ __('New Category') }}
+        </h2>
+    </x-slot>
     <x-slot name="slot">
         <x-form enctype="multipart/form-data" method="POST" :route="route('categories.store')">
         @csrf

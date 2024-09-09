@@ -78,6 +78,8 @@ class PlaceController extends Controller
     public function show(Place $place)
     {
         //
+
+        return view('places.place', ['place'=>$place]);
     }
 
     /**
@@ -85,7 +87,10 @@ class PlaceController extends Controller
      */
     public function edit(Place $place)
     {
-        //
+        //Obtaining categories to display
+        $categories = Category::select('id', 'name')->get();
+
+        return view("places.create", ['place' => $place, 'categories' => $categories]);
     }
 
     /**
